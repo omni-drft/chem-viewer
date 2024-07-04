@@ -75,7 +75,6 @@ Object* objInit()
     initVertex(&cube1->vertices[6],  1.0f,  1.0f,  1.0f);
     initVertex(&cube1->vertices[7], -1.0f,  1.0f,  1.0f);
 
-
     return cube1;
 }
 
@@ -96,7 +95,6 @@ uint8_t mainLoop(State* state)
         SDL_RenderClear(state->renderer);
         SDL_RenderCopy(state->renderer, state->texture, NULL, NULL);
         SDL_RenderPresent(state->renderer);
-
     }
 
     return 0;
@@ -106,6 +104,7 @@ uint32_t cleanup(State* state, Object* object)
 {
     free(state->pixels);
     free(object->vertices);
+    free(object);
     return 0;
 }
 

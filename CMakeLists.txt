@@ -16,6 +16,6 @@ set_target_properties(ChemViewer PROPERTIES
 )
 
 target_include_directories(ChemViewer PRIVATE ${SDL2_INCLUDE_DIRS})
-target_link_libraries(ChemViewer PRIVATE ${SDL2_LIBRARIES})
+target_link_libraries(ChemViewer PRIVATE ${SDL2_LIBRARIES} m)
 
 

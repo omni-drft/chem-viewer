@@ -8,10 +8,13 @@
 #include "Structs.h"
 #include "BaseFunctions.h"
 #include "Constants.h"
+#include "Math.h"
 
 int main()
 {
     State state;
+
+    Matrix4 matrix;
 
     if (libInit(&state)) printf("Error has occured during SDL initialisation\n");
 
