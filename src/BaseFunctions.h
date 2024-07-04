@@ -9,7 +9,7 @@
 #include "Structs.h"
 #include "Constants.h"
 
-uint8_t baseInit(State* state)
+uint8_t libInit(State* state)
 {
     
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -60,6 +60,25 @@ uint8_t baseInit(State* state)
     return 0;
 }
 
+Object* objInit()
+{
+    Object* cube1;
+    cube1 = (Object*)malloc(sizeof(Object));
+    cube1->vertices = (Vertex*)malloc(sizeof(Vertex) * 8);
+    
+    initVertex(&cube1->vertices[0], -1.0f, -1.0f, -1.0f);
+    initVertex(&cube1->vertices[1],  1.0f, -1.0f, -1.0f);
+    initVertex(&cube1->vertices[2],  1.0f,  1.0f, -1.0f);
+    initVertex(&cube1->vertices[3], -1.0f,  1.0f, -1.0f);
+    initVertex(&cube1->vertices[4], -1.0f, -1.0f,  1.0f);
+    initVertex(&cube1->vertices[5],  1.0f, -1.0f,  1.0f);
+    initVertex(&cube1->vertices[6],  1.0f,  1.0f,  1.0f);
+    initVertex(&cube1->vertices[7], -1.0f,  1.0f,  1.0f);
+
+
+    return cube1;
+}
+
 uint8_t mainLoop(State* state)
 {
 
@@ -83,9 +102,10 @@ uint8_t mainLoop(State* state)
     return 0;
 }
 
-uint32_t cleanup(State* state)
+uint32_t cleanup(State* state, Object* object)
 {
     free(state->pixels);
+    free(object->vertices);
     return 0;
 }
 

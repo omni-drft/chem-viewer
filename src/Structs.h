@@ -25,4 +25,11 @@ typedef struct
     bool quit;
 } State;
 
+void initVertex(Vertex* vertex, float _x, float _y, float _z)
+{
+    vertex->x = _x;
+    vertex->y = _y;
+    vertex->z = _z;
+}
+
 #endif
