@@ -60,4 +60,33 @@ uint8_t baseInit(State* state)
     return 0;
 }
 
+uint8_t mainLoop(State* state)
+{
+
+    while (!state->quit) 
+    {
+        SDL_Event event;
+        while (SDL_PollEvent(&event))
+        {
+            if(event.type == SDL_QUIT)
+                state->quit = true;
+            break;
+        }
+
+        SDL_UpdateTexture(state->texture, NULL, state->pixels, WIDTH * 4);
+        SDL_RenderClear(state->renderer);
+        SDL_RenderCopy(state->renderer, state->texture, NULL, NULL);
+        SDL_RenderPresent(state->renderer);
+
+    }
+
+    return 0;
+}
+
+uint32_t cleanup(State* state)
+{
+    free(state->pixels);
+    return 0;
+}
+
 #endif
