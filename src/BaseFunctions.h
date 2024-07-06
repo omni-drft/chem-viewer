@@ -8,6 +8,7 @@
 
 #include "Structs.h"
 #include "Constants.h"
+#include "InputHandler.h"
 
 uint8_t libInit(State* state)
 {
@@ -88,6 +89,9 @@ uint8_t mainLoop(State* state)
         {
             if(event.type == SDL_QUIT)
                 state->quit = true;
+
+            HandleInput(&event, state);
+
             break;
         }
 
