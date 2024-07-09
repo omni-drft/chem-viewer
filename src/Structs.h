@@ -6,7 +6,7 @@
 
 typedef struct 
 {
-    float x, y, z;
+    float x, y, z, w;
 } Vertex;
 
 typedef struct 
@@ -25,11 +25,12 @@ typedef struct
     bool quit;
 } State;
 
-void initVertex(Vertex* vertex, float _x, float _y, float _z)
+void initVertex(Vertex* vertex, float _x, float _y, float _z, float _w)
 {
     vertex->x = _x;
     vertex->y = _y;
     vertex->z = _z;
+    vertex->w = _w;
 }
 
 #endif

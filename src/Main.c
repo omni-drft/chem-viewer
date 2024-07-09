@@ -20,7 +20,7 @@ int main()
 
     Object* cube1 = objInit();
 
-    if (mainLoop(&state)) printf("Error has occured during main loop execution\n");
+    if (mainLoop(&state, cube1)) printf("Error has occured during main loop execution\n");
 
     if (cleanup(&state, cube1)) printf("Error has occured during cleanup\n");
 

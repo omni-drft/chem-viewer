@@ -5,10 +5,12 @@
 #include <SDL_render.h>
 #include <SDL_video.h>
 #include <bits/stdint-uintn.h>
+#include <stdint.h>
 
 #include "Structs.h"
 #include "Constants.h"
 #include "InputHandler.h"
+#include "Math.h"
 
 uint8_t libInit(State* state)
 {
@@ -67,19 +69,19 @@ Object* objInit()
     cube1 = (Object*)malloc(sizeof(Object));
     cube1->vertices = (Vertex*)malloc(sizeof(Vertex) * 8);
     
-    initVertex(&cube1->vertices[0], -1.0f, -1.0f, -1.0f);
-    initVertex(&cube1->vertices[1],  1.0f, -1.0f, -1.0f);
-    initVertex(&cube1->vertices[2],  1.0f,  1.0f, -1.0f);
-    initVertex(&cube1->vertices[3], -1.0f,  1.0f, -1.0f);
-    initVertex(&cube1->vertices[4], -1.0f, -1.0f,  1.0f);
-    initVertex(&cube1->vertices[5],  1.0f, -1.0f,  1.0f);
-    initVertex(&cube1->vertices[6],  1.0f,  1.0f,  1.0f);
-    initVertex(&cube1->vertices[7], -1.0f,  1.0f,  1.0f);
+    initVertex(&cube1->vertices[0], -1.0f, -1.0f, -1.0f, 1.0f);
+    initVertex(&cube1->vertices[1],  1.0f, -1.0f, -1.0f, 1.0f);
+    initVertex(&cube1->vertices[2],  1.0f,  1.0f, -1.0f, 1.0f);
+    initVertex(&cube1->vertices[3], -1.0f,  1.0f, -1.0f, 1.0f);
+    initVertex(&cube1->vertices[4], -1.0f, -1.0f,  1.0f, 1.0f);
+    initVertex(&cube1->vertices[5],  1.0f, -1.0f,  1.0f, 1.0f);
+    initVertex(&cube1->vertices[6],  1.0f,  1.0f,  1.0f, 1.0f);
+    initVertex(&cube1->vertices[7], -1.0f,  1.0f,  1.0f, 1.0f);
 
     return cube1;
 }
 
-uint8_t mainLoop(State* state)
+uint8_t mainLoop(State* state, Object* obj)
 {
 
     while (!state->quit) 
@@ -94,6 +96,18 @@ uint8_t mainLoop(State* state)
 
             break;
         }
+
+        Matrix4 translationMatrix = translationMat(0.1f, 0.1f, 0.1f);
+        Matrix4 rotationMatrixX = rotationMatX(2.0f);
+        Matrix4 rotationMatrixY = rotationMatY(3.0f);
+        Matrix4 rotationMatrixZ = rotationMatZ(5.0f);
+        Matrix4 scalingMatrix = scalingMat(0.5f, 0.5f, 0.5f);
+        Matrix4 combinedMatrix = combinedTransformation(&translationMatrix, &rotationMatrixX, &rotationMatrixY, &rotationMatrixZ, &scalingMatrix);
+
+        uint_fast8_t i;
+        for (i = 0; i < 8; ++i)
+            obj->vertices[i] = vertByMat(&obj->vertices[i], &combinedMatrix);
+            
 
         SDL_UpdateTexture(state->texture, NULL, state->pixels, WIDTH * 4);
         SDL_RenderClear(state->renderer);

@@ -5,6 +5,8 @@
 #include <math.h>
 #include <xmmintrin.h>
 
+#include "Structs.h"
+
 typedef struct 
 {
     float comps[16];
@@ -152,6 +154,32 @@ Matrix4 combinedTransformation(Matrix4* translation, Matrix4* rotationX, Matrix4
     return result2;
 }
 
+Vertex vertByMat(Vertex* vertex, Matrix4* matrix)
+{
+    Vertex result;
+    
+    result.x = matrix->comps[0] * vertex->x 
+             + matrix->comps[1] * vertex->y
+             + matrix->comps[2] * vertex->z
+             + matrix->comps[3] * vertex->w;
+    
+    result.y = matrix->comps[4] * vertex->x 
+             + matrix->comps[5] * vertex->y
+             + matrix->comps[6] * vertex->z
+             + matrix->comps[7] * vertex->w;
+
+    result.z = matrix->comps[8] * vertex->x 
+             + matrix->comps[9] * vertex->y
+             + matrix->comps[10] * vertex->z
+             + matrix->comps[11] * vertex->w;
+    
+    result.w = matrix->comps[12] * vertex->x 
+             + matrix->comps[13] * vertex->y
+             + matrix->comps[14] * vertex->z
+             + matrix->comps[15] * vertex->w;
+
+    return result;
+}
 
 
 
