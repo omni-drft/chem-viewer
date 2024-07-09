@@ -57,7 +57,7 @@ uint8_t libInit(State* state)
 
     int i;
     for (i = 0; i < PIX_NUM; ++i)
-        state->pixels[i] = 0xFF5733FF;
+        state->pixels[i] = 0x000000FF;
     
 
     return 0;
@@ -108,6 +108,12 @@ uint8_t mainLoop(State* state, Object* obj)
         for (i = 0; i < 8; ++i)
             obj->vertices[i] = vertByMat(&obj->vertices[i], &combinedMatrix);
             
+        for (i = 0; i < 8; ++i)
+            perspectiveProjection(&obj->vertices[i]);
+
+        for (i = 0; i < 8; ++i)
+            viewportTransformation(&obj->vertices[i]);
+
 
         SDL_UpdateTexture(state->texture, NULL, state->pixels, WIDTH * 4);
         SDL_RenderClear(state->renderer);

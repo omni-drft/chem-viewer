@@ -6,6 +6,7 @@
 #include <xmmintrin.h>
 
 #include "Structs.h"
+#include "Constants.h"
 
 typedef struct 
 {
@@ -181,6 +182,27 @@ Vertex vertByMat(Vertex* vertex, Matrix4* matrix)
     return result;
 }
 
+void perspectiveProjection(Vertex* vertex)
+{
+    float xScreen = vertex->x / vertex->z;
+    float yScreen = vertex->y / vertex->z;
+    
+    vertex->x = xScreen;
+    vertex->y = yScreen;
+}
 
+void viewportTransformation(Vertex* vertex)
+{
+    float xScreen = vertex->x;
+    float yScreen = vertex->y;
+    float       z = vertex->z;
+
+    float xPixel = (xScreen + 1) * WIDTH / 2;
+    float yPixel = (1 - yScreen) * HEIGHT / 2;
+
+    vertex->x = xPixel;
+    vertex->y = yPixel;
+    vertex->z = z;
+}
 
 #endif
