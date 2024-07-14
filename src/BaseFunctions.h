@@ -42,7 +42,6 @@ uint8_t libInit(State* state)
     }
 
     state->texture = SDL_CreateTexture(state->renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, WIDTH, HEIGHT);
-
     if (state->texture == NULL)
     {
         const char* error = SDL_GetError();
@@ -57,6 +56,7 @@ uint8_t libInit(State* state)
 
     int i;
     for (i = 0; i < PIX_NUM; ++i)
+
         state->pixels[i] = 0x000000FF;
     
 
@@ -113,6 +113,8 @@ uint8_t mainLoop(State* state, Object* obj)
 
         for (i = 0; i < 8; ++i)
             viewportTransformation(&obj->vertices[i]);
+
+        rasterize(obj, state);
 
 
         SDL_UpdateTexture(state->texture, NULL, state->pixels, WIDTH * 4);
