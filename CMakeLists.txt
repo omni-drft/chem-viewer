@@ -34,7 +34,7 @@ add_executable(ProcekEngineTest test/Main.c)
 
 set_target_properties(ProcekEngineTest 
     PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 )
 
 target_include_directories(ProcekEngineTest PRIVATE include)
