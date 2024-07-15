@@ -9,7 +9,11 @@ set(CMAKE_C_STANDARD_REQUIRED True)
 
 find_package(SDL2 REQUIRED)
 
-add_library(ProcekEngine STATIC src/peBase.c)
+add_library(ProcekEngine STATIC 
+    src/peBase.c
+    src/peRectangle.c
+    src/peMath.c
+)
 
 set_target_properties(ProcekEngine PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
