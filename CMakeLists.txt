@@ -9,13 +9,34 @@ set(CMAKE_C_STANDARD_REQUIRED True)
 
 find_package(SDL2 REQUIRED)
 
-add_library(ProcekEngine SHARED src/peBase.c)
+add_library(ProcekEngine STATIC src/peBase.c)
 
 set_target_properties(ProcekEngine PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib    
+    ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
 )
 
-target_include_directories(ProcekEngine PRIVATE ${SDL2_INCLUDE_DIRS} ${CMAKE_BINARY_DIR}/include)
-target_link_libraries(ProcekEngine PRIVATE ${SDL2_LIBRARIES} m)
+target_include_directories(ProcekEngine 
+    PRIVATE 
+        ${CMAKE_BINARY_DIR}/include
+    PUBLIC
+        ${SDL2_INCLUDE_DIRS}
+        ${CMAKE_SOURCE_DIR}/include
+)
+target_link_libraries(ProcekEngine 
+    PRIVATE 
+        ${SDL2_LIBRARIES} 
+        m
+)
 
+
+
+add_executable(ProcekEngineTest test/Main.c)
+
+set_target_properties(ProcekEngineTest 
+    PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
+)
+
+target_include_directories(ProcekEngineTest PRIVATE include)
+target_link_libraries(ProcekEngineTest PRIVATE ProcekEngine)
 
