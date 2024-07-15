@@ -3,6 +3,7 @@
 #include <SDL_pixels.h>
 #include <SDL_render.h>
 #include <SDL_video.h>
+#include <stdbool.h>
 
 unsigned int peInit(peState* state, const char* title, int width, int height)
 {
@@ -56,4 +57,25 @@ unsigned int peCleanup(peState* state)
     free(state->texture);
     return 0;
 
+}
+
+void peUpdateRenderer(peState* state)
+{
+    int width;
+    SDL_GetWindowSize(state->window, &width, NULL);
+    SDL_UpdateTexture(state->texture, NULL, state->framebuffer, width * 4);
+    SDL_RenderClear(state->renderer);
+    SDL_RenderCopy(state->renderer, state->texture, NULL, NULL);
+    SDL_RenderPresent(state->renderer);
+}
+
+void peDetectClose(peState* state)
+{
+    SDL_Event event;
+    while (SDL_PollEvent(&event))
+    {
+        if (event.type == SDL_QUIT)
+            state->quit = true;
+        break;
+    }
 }

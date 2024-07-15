@@ -2,4 +2,4 @@
 
 cmake .
 make
-./bin/ChemViewer
+./bin/ProcekEngineTest

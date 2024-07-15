@@ -10,13 +10,8 @@ int main()
 
     while (!state.quit)
     {
-        SDL_Event event;
-        while(SDL_PollEvent(&event))
-        {
-            if (event.type == SDL_QUIT)
-                state.quit = true;
-            break;
-
-        }
+        peDetectClose(&state);
+        peUpdateRenderer(&state);
     }
+    peCleanup(&state);
 }

@@ -16,4 +16,10 @@ typedef struct {
 
 unsigned int peInit(peState*, const char*, int, int);
 
+unsigned int peCleanup(peState*);
+
+void peUpdateRenderer(peState*);
+ 
+void peDetectClose(peState*);
+
 #endif
